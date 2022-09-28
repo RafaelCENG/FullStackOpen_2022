@@ -1,0 +1,8 @@
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+server-->browser: Status Code 201
+
+note over browser:
+The POST request contains the new note as JSON
+The Broswer will not request a redirect.
+No further HTTP requests will be made
+end note
