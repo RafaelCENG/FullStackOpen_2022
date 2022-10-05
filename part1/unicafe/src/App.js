@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 const Display = (props) => {
-	console.log('Display props', props)
 	return <div>{props.counter}</div>
 }
 
@@ -10,10 +9,14 @@ const Button = (props) => {
 }
 
 const Average = (props) => {
-	console.log(props)
-
 	if (props.all > 0) {
 		return (props.good * 1 - props.bad) / props.all
+	}
+}
+
+const Positive = (props) => {
+	if (props.all > 0) {
+		return (props.good / props.all) * 100
 	}
 }
 
@@ -69,6 +72,7 @@ const App = () => {
 			</div>
 			<div>
 				<h3>positive</h3>
+				<Positive good={good} all={all} />
 			</div>
 		</div>
 	)
