@@ -1,23 +1,37 @@
 import { useState } from 'react'
 
-const Display = (props) => {
-	return <div>{props.counter}</div>
+
+const Statistics = ({ good, bad, neutral, all }) => {
+	if (all > 0) {
+		const average = (good - bad) / all
+		const positive = (good / all) * 100
+		return (
+			<div>
+				<StatisticLine text="good" value={good} />
+				<StatisticLine text="neutral" value={neutral} />
+				<StatisticLine text="bad" value={bad} />
+				<StatisticLine text="all" value={all} />
+				<StatisticLine text="average" value={average} />
+				<StatisticLine text="positive" value={positive} />
+			</div>
+		)
+	}
+	return <div>No feedback given</div>
+}
+
+const StatisticLine = (props) => {
+	console.log(props)
+
+	return (
+		<div>
+			<h3>{props.text}</h3>
+			{props.value}
+		</div>
+	)
 }
 
 const Button = (props) => {
 	return <button onClick={props.onClick}>{props.text}</button>
-}
-
-const Average = (props) => {
-	if (props.all > 0) {
-		return (props.good * 1 - props.bad) / props.all
-	}
-}
-
-const Positive = (props) => {
-	if (props.all > 0) {
-		return (props.good / props.all) * 100
-	}
 }
 
 const App = () => {
@@ -50,30 +64,7 @@ const App = () => {
 			<Button onClick={increaseNeutralByOne} text="neutral" />
 			<Button onClick={increaseBadByOne} text="bad" />
 			<h1>statistics</h1>
-			<div>
-				<h3>good</h3>
-				<Display counter={good} />
-			</div>
-			<div>
-				<h3>neutral</h3>
-				<Display counter={neutral} />
-			</div>
-			<div>
-				<h3>bad</h3>
-				<Display counter={bad} />
-			</div>
-			<div>
-				<h3>all</h3>
-				<Display counter={all} />
-			</div>
-			<div>
-				<h3>average</h3>
-				<Average good={good} bad={bad} all={all} />
-			</div>
-			<div>
-				<h3>positive</h3>
-				<Positive good={good} all={all} />
-			</div>
+			<Statistics good={good} bad={bad} all={all} neutral={neutral} />
 		</div>
 	)
 }
