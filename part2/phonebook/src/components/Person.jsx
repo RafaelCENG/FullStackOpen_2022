@@ -1,5 +1,4 @@
 const Person = ({ person }) => {
-	console.log(person)
 	return <h3>{person.name}</h3>
 }
 
