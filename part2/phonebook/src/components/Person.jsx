@@ -1,5 +1,11 @@
 const Person = ({ person }) => {
-	return <h3>{person.name}</h3>
+	return (
+		<div>
+			<div>
+				{person.name} {person.number}
+			</div>
+		</div>
+	)   
 }
 
 export default Person
