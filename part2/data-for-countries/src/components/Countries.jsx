@@ -1,19 +1,29 @@
-const Countries = ({ countries, search }) => {
+import MultipleCountries from './MultipleCountries'
+import SingleCountry from './SingleCountry'
 
-    // Whenever search change we map through countries to find which ones contain the search string in their name
-
-    // > 10 Error message
-    // 2-10 just names
-    // 1 we render SingleCountry which contain name,capital,area,languages,flag
-
-	return (<div>
-        {countries.length > 10 ? 
-            <div>Too many matches,specify another filter</div> : 
-
-        
-        }
-    </div>
-    )
+const Countries = ({ filteredData }) => {
+	// > 10 Error message
+	if (filteredData.length > 10) {
+		return <div>Too man matches,specify another filter</div>
+	}
+	// 2-10 just names
+	else if (filteredData.length > 2 && filteredData.length <= 10) {
+		return (
+			<div>
+				{filteredData.map((country) => (
+					<MultipleCountries key={country.area} country={country} />
+				))}
+			</div>
+		)
+	}
+	// 1 we render SingleCountry which contain name,capital,area,languages,flag
+	else if (filteredData.length === 1) {
+		return (
+			<div>
+				<SingleCountry country={filteredData} />
+			</div>
+		)
+	}
 }
 
 export default Countries
