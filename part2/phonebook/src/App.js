@@ -4,6 +4,7 @@ import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 
 import axios from 'axios'
+import personService from './services/persons'
 
 const App = () => {
 	const [persons, setPersons] = useState([])
@@ -29,7 +30,9 @@ const App = () => {
 				name: newName,
 				number: newNumber,
 			}
-			setPersons(persons.concat(personObject))
+			personService.create(personObject).then((response) => {
+				setPersons(persons.concat(response.data))
+			})
 		} else {
 			alert(`${newName} is already added to phonebook`)
 		}
@@ -48,6 +51,20 @@ const App = () => {
 		setSearch(e.target.value)
 	}
 
+	const handleDelete = (id) => {
+		if (window.confirm('Do you really want to delete this number?')) {
+			console.log(id)
+			personService
+				.deletePerson(id)
+				.then((response) => {
+					setPersons(persons.filter((person) => person.id !== id))
+				})
+				.catch((error) => {
+					console.log(error)
+				})
+		}
+	}
+
 	return (
 		<div>
 			<h2>Phonebook</h2>
@@ -61,7 +78,7 @@ const App = () => {
 				addPerson={addPerson}
 			/>
 			<h3>Numbers</h3>
-			<Persons search={search} persons={persons} />
+			<Persons search={search} persons={persons} handleDelete={handleDelete} />
 		</div>
 	)
 }
