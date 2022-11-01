@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Filter from './components/Filter'
+import Notification from './components/Notification'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 
@@ -12,6 +13,7 @@ const App = () => {
 	const [newName, setNewName] = useState('')
 	const [newNumber, setNewNumber] = useState('')
 	const [search, setSearch] = useState('')
+	const [addedMessage, setAddedMessage] = useState(null)
 
 	useEffect(() => {
 		console.log('effect')
@@ -32,6 +34,10 @@ const App = () => {
 			}
 			personService.create(personObject).then((response) => {
 				setPersons(persons.concat(response.data))
+				setAddedMessage(`Added ${personObject.name}`)
+				setTimeout(() => {
+					setAddedMessage(null)
+				}, 5000)
 			})
 		} else {
 			alert(`${newName} is already added to phonebook`)
@@ -68,6 +74,7 @@ const App = () => {
 	return (
 		<div>
 			<h2>Phonebook</h2>
+			<Notification message={addedMessage} />
 			<Filter handleFilterChange={handleFilterChange} />
 			<h3>Add a new</h3>
 			<PersonForm
