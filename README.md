@@ -8,3 +8,6 @@ Introduction to React
 
 [PART 2](https://github.com/RafaelCENG/FullStackOpen_2022/tree/main/part2)
 Communicating with server
+
+[PART3](https://github.com/RafaelCENG/FullStackOpen_2022/tree/main/part3)
+Programming a server with NodeJS and Express
